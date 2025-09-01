@@ -1,5 +1,4 @@
 # SECRETARIA
-REGULAÇÃO
 import React, { useMemo, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
