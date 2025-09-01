@@ -1,3 +1,56 @@
+import React, { useMemo, useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  Legend,
+  PieChart,
+  Pie,
+  Cell,
+} from "recharts";
+import { Download, FileText, RefreshCcw, Filter, Printer } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+
+// ==========================
+// UTILITÁRIOS
+// ==========================
+function formatNumber(n) {
+  return new Intl.NumberFormat("pt-BR").format(n || 0);
+}
+
+function toCSV(rows) {
+  if (!rows?.length) return "";
+  const headers = Object.keys(rows[0]);
+  const csv = [headers.join(",")]
+    .concat(
+      rows.map((r) => headers.map((h) => JSON.stringify(r[h] ?? "")).join(","))
+    )
+    .join("\n");
+  return csv;
+}
+
 function downloadFile(filename, content, mime = "text/plain;charset=utf-8") {
   const blob = new Blob([content], { type: mime });
   const url = URL.createObjectURL(blob);
@@ -288,3 +341,4 @@ export default function DashboardSaude() {
     </div>
   );
 }
+
